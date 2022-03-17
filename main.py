@@ -26,3 +26,44 @@ class Game:
         if not isinstance(self.tries, float):
             print(f'\nYou have left {self.tries - self.count} trie')
         return 'wrong word'
+
+
+dc = {
+    'kids': [float('inf'), 5],
+    'easy': [8, 5],
+    'classic': [6, 5],
+    'hard': [6, 7]
+}
+
+
+def menu():
+    print('Welcome to Wordle! ')
+    levels = ['kids', 'easy', 'classic', 'hard']
+    choice = None
+    while choice != 'no':
+        print('Choose one from following levels, or type exit to quit')
+        print(*levels, sep='\n')
+        lvl = input('Enter lvl: ')
+        if lvl == 'exit':
+            break
+        if lvl not in levels:
+            print('level does not exists! choose the right one')
+            continue
+        selected_lvl = dc.get(lvl)
+        g = Game(*selected_lvl)
+        while g.count < g.tries:
+            guessed_word = input('\nGuess the word: ').lower()
+            if len(guessed_word) != selected_lvl[1]:
+                print(f'Enter word with {selected_lvl[1]} letters')
+                continue
+            response = g.gameplay(guessed_word)
+            print('\n', response)
+            if response != 'wrong word':
+                break
+        choice = input('Do you want to play again?: ')
+        if choice not in ['yes', 'no']:
+            continue
+
+
+if __name__ == '__main__':
+    menu()
