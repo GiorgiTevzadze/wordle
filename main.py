@@ -43,7 +43,7 @@ def menu():
     while choice != 'no':
         print('Choose one from following levels, or type exit to quit')
         print(*levels, sep='\n')
-        lvl = input('Enter lvl: ')
+        lvl = str(input('Enter lvl: '))
         if lvl == 'exit':
             break
         if lvl not in levels:
